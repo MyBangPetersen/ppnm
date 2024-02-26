@@ -1,0 +1,19 @@
+ME double = 2.22044604925031E-16
+should be equal to = Pow(2,-52) = 2.22044604925031E-16
+ME float = 1.192093E-07
+should be equal to = Pow(2,-23) = 1.19209289550781E-07
+a= 1
+b= 1
+tiny= 1.11022302462516E-16
+a==b ? False
+a>1  ? False
+b>1  ? True
+a==1 ? True
+b==1 ? False
+The order of adding tiny to the numbers
+makes it so that b is not rounded back to 1
+Thus a will be equal to one but b will not...
+d1=7.999999999999999e-001
+d2=8.000000000000000e-001
+d1==d2 ? => False
+Comparing d1 and d2 True
