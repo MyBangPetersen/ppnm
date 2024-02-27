@@ -1,13 +1,15 @@
 using static System.Console;
 using static System.Math;
 
-public class vec(){
-	public double x,y,z;
+public class main(){
+	static void Main(){
 
-	//constructors
-	public vec(){x=y=z=0;}
-	public vec(double x,double y,double z){ this.x=x; this.y=y; this.z=z;}
+	//defining vectors u and v as in the libary
+	vec v = new vec(6, 2, 9);
+	v.testwrite("v");
 
+	vec u = new vec(5, 1, 7);
+	u.testwrite("u");
 
-
-}//vec
+}//Main
+}//main
