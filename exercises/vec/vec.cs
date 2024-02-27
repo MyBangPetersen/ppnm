@@ -1,7 +1,7 @@
 using static System.Console;
 using static System.Math;
 
-public class vec(){
+public class vec{
 	public double x,y,z;
 
 	//constructors
@@ -53,7 +53,7 @@ public class vec(){
 		}
 
 	public double norm(){
-		return x*x + y*y + z*z
+		return x*x + y*y + z*z;
 		}
 
 	//comparing the vectors
@@ -64,13 +64,14 @@ public class vec(){
 			}
 
 	public bool approx(vec other){
-		if(!approx(this.x,other.x)return false;
-		if(!approx(this.y,other.y)return false;
-		if(!approx(this.z,other.z)return false;
-			return true;
-			}
+		if(!approx(this.x,other.x) return false;
+		if(!approx(this.y,other.y) return false;
+		if(!approx(this.z,other.z) return false;
+		return true;
+		}
 
-	public static bool approx(vec u, vec v) => u.approx(v);
+	public static bool approx(vec u, vec v);
+		return u.approx(v);
 
 	//override to string
 	public override string ToString(){

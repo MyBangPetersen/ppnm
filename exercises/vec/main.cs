@@ -6,10 +6,13 @@ public class main(){
 
 	//defining vectors u and v as in the libary
 	vec v = new vec(6, 2, 9);
-	v.testwrite("v");
+	v.print("v");
 
 	vec u = new vec(5, 1, 7);
-	u.testwrite("u");
+	u.print("u");
+
+	//doing some calculations
+
 
 }//Main
 }//main
