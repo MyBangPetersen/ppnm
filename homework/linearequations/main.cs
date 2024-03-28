@@ -72,13 +72,12 @@ public static class QRGS{
 
 class main{
 static void Main(){
-	/*
 	System.Console.Write("Making a random matrix");
-	matrix A = RM.randommatrix(5,3);
+	matrix A = RM.randommatrix(3,3);
 	A.print();
 
 	System.Console.Write("Making a random vector \n");
-	vector H = RV.randomvector(4);
+	vector H = RV.randomvector(3);
 	H.print();
 
 	//decomp testing
@@ -92,17 +91,19 @@ static void Main(){
 	R.print();
 	System.Console.Write("Q^T*Q=1");
 	matrix QTQ = Q.T*Q;
-	QTQ.print(); */
+	QTQ.print();
 
 	//solve testing
+	/*
 	System.Console.Write("Making a vector and square matrix of same size");
 	matrix A = RM.randommatrix(3,3);
         A.print();
 	System.Console.Write("\n");
         vector H = RV.randomvector(3);
 	H.print();
+	*/
 	System.Console.Write("Decomposing using decomp from before");
-	(matrix Q, matrix R) = QRGS.decomp(A);
+	//(matrix Q, matrix R) = QRGS.decomp(A);
 	Q.print();
 	System.Console.Write("The solution to the system \n");
 	vector a = QRGS.solve(Q, R, H);

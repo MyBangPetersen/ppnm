@@ -1,9 +1,25 @@
-Making a vector and square matrix of same size
+Making a random matrix
      0.249      0.111      0.467 
      0.772      0.658      0.433 
      0.354      0.944      0.101 
+Making a random vector 
+     0.249      0.111      0.467 
+decomp works
+     0.281     -0.272       0.92 
+     0.872     -0.328     -0.363 
+       0.4      0.905      0.145 
 
      0.249      0.111      0.467 
+     0.772      0.658      0.433 
+     0.354      0.944      0.101 
+R is upper tringular
+     0.885      0.982      0.549 
+         0      0.609     -0.177 
+         0          0      0.287 
+Q^T*Q=1
+         1   1.67e-16   7.77e-16 
+  1.67e-16          1   2.78e-17 
+  7.77e-16   2.78e-17          1 
 Decomposing using decomp from before
      0.281     -0.272       0.92 
      0.872     -0.328     -0.363 
