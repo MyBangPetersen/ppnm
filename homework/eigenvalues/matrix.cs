@@ -1,5 +1,3 @@
-//using the given matrix class
-
 // (C) 2020 Dmitri Fedorov; License: GNU GPL v3+; no warranty.
 using System;
 using static System.Math;

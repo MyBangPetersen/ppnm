@@ -72,7 +72,21 @@ public static class QRGS{
 		}
 
 
-	//public static matrix inverse(matrix Q,matrix R){ ... }
+	public static matrix inverse(matrix Q, matrix R){
+		matrix B = new matrix(R.size1, R.size2);
+		matrix Q_trans = Q.T;
+		vector[] xs = new vector[R.size1];
+
+		for (int i=0; i<R.size1; i++){
+			vector E = new vector(R.size2);
+                	E[i] = 1;
+			xs[i] = solve(Q, R, E);
+			}
+
+		B = Matrix.VecsToMatrix(xs);
+
+		return B;
+		}
 
 
 	}//QRGS
@@ -119,6 +133,10 @@ static void Main(){
 	System.Console.Write("Ax=b \n");
 	vector D = A*a;
 	D.print();
+
+	//testing inverse
+	matrix A_inverse = QRGS.inverse(Q, R);
+	Syetem.Console.Write($"A*A^-1=I : {I.approx(A*A_inverse)}");
 
 	}//Main
 	}//main
