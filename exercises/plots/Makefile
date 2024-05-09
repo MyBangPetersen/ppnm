@@ -1,73 +1,78 @@
 CODE = $(filter %.cs,$^)
-LIBS = $(addprefix -reference:,$(filter %.dll,$^))
+LIBS = $(addprefix -reference:, $(filter %.dll,$^))
 MKEXE = mcs -target:exe -out:$@ $(LIBS) $(CODE)
 MKLIB = mcs -target:library -out:$@ $(LIBS) $(CODE)
 
-.PHONY: all
+default: Erf.gnuplot.svg Gamma.gnuplot.svg Lngamma.gnuplot.svg
 
-all: Error.data Gamma.data Lngamma.data Out.erf.gnuplot.svg Factorial.data Out.gamma.gnuplot.svg Out.lngamma.gnuplot.svg
-
-sfuns.dll : sfuns.cs ; $(MKLIB)
-main.exe : main.cs sfuns.dll; $(MKEXE)
-
-Error.data : main.exe
-	mono $< erf > $@
-
-Gamma.data : main.exe
-	mono $< gamma > $@
-
-Lngamma.data : main.exe
-	mono $< lngamma > $@
-
-Factorial.data : main.exe
-	mono $< factorial > $@
-
-Out.erf.gnuplot.svg : Error.data Makefile
+Erf.gnuplot.svg: Out.txt Makefile
 	echo '\
 		set terminal svg background "white" ;\
 		set out "$@" ;\
-		set key left ;\
-		set xlabel "x";\
-		set ylabel "erf(x)";\
-		set title "Error function" ;\
+		set key left;\
+		set xlabel "x" ;\
+		set ylabel "erf(x)" ;\
 		set tics out ;\
 		set grid ;\
-		plot [-5:5]\
-			"Error.data" with lines notitle \
+		set title "Error function" ;\
+		plot [-3:3]\
+			"$<" with lines notitle \
 			,"erf.data.txt" using 1:2 with points pointtype 6 notitle \
 			,"erf.data.txt" using (-($$1)):(-($$2)) with points pointtype 6 notitle ;\
 	' | tee log.gpi | gnuplot
 
-Out.gamma.gnuplot.svg : Gamma.data Makefile
+
+
+Gamma.gnuplot.svg: Out2.txt Makefile
 	echo '\
-                set terminal svg background "white" ;\
-                set out "$@" ;\
-                set key left ;\
-                set xlabel "x";\
-                set ylabel "gamma(x)";\
-                set title "Gamma function" ;\
-                set tics out ;\
-                set grid ;\
-		set yrange [-5:5] ;\
-                plot [-5:5]\
-                        "Gamma.data" with lines notitle \
-			,"Factorial.data" with points pointtype 6 notitle;\
-        ' | tee log.gpi | gnuplot
+		set terminal svg background "white" ;\
+		set out "$@" ;\
+		set key left;\
+		set xlabel "x" ;\
+		set ylabel "gamma(x)" ;\
+		set tics out ;\
+		set grid ;\
+		set title "Gamma function with n-1 factorials" ;\
+		plot [-4.1:][-10:10]\
+			"$<" with lines notitle \
+			,"factorials.txt" using (($$1)+1):2 with points pointtype 6 notitle ;\
+	' | tee log2.gpi | gnuplot
 
-Out.lngamma.gnuplot.svg : Lngamma.data Makefile
+
+Lngamma.gnuplot.svg: Out3.txt Makefile
 	echo '\
-                set terminal svg background "white" ;\
-                set out "$@" ;\
-                set key left ;\
-                set xlabel "x";\
-                set ylabel "gamma(x)";\
-                set title "Gamma function" ;\
-                set tics out ;\
-                set grid ;\
-                plot [-5:5]\
-                        "Lngamma.data" with lines notitle ;\
-        ' | tee log.gpi | gnuplot
+		set terminal svg background "white" ;\
+		set out "$@" ;\
+		set key left;\
+		set xlabel "x" ;\
+		set ylabel "lngamma(x)" ;\
+		set tics out ;\
+		set grid ;\
+		set title "Lngamma function" ;\
+		plot [0:][-2:]\
+			"$<" with lines notitle ;\
+	' | tee log3.gpi | gnuplot
 
 
+
+
+Out.txt: main.exe
+	mono $< > $@
+
+Out2.txt: main2.exe
+	mono $< > $@
+
+Out3.txt: main3.exe
+	mono $< > $@
+
+
+sfuns.dll: sfuns.cs ; $(MKLIB)
+main.exe: main.cs  sfuns.dll; $(MKEXE)
+main2.exe: main2.cs  sfuns.dll; $(MKEXE)
+main3.exe: main3.cs  sfuns.dll; $(MKEXE)
+
+
+
+.PHONEY: clean
 clean:
-	$(RM) *.exe *.dll [Oo]ut* [Ll]og* *.data
+	$(RM) *.exe *.dll [Oo]ut.txt *.svg log.gpi log2.gpi log3.gpi
