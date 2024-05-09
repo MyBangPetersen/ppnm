@@ -5,6 +5,7 @@ using static System.Console;
 class math{
 	//small tasks
 	static int Main(){
+		Write($"\n Part 1\n");
 		double sqrt = Math.Sqrt(2.0);
 		Write($"sqrt^2 = {sqrt*sqrt} (should equal 2)\n");
 
@@ -18,18 +19,18 @@ class math{
 		Write($"pi^e = {epi} with ln(pi^e) = {Math.Log(epi, Math.PI)} \n");
 
 	//the gamma function
+		Write($"\n Part 2\n");
 		double prod=1;
 		for(double x=1;x<10;x+=1){
 		Write($"fgamma({x})={sfunc.fgamma(x)} \t {x-1}!={prod}\n");
 		prod*=x;
 		}
-		return 0;
 
 	//the modified gamma function
-                double prodd=1;
+		Write($"\n Part 3\n");
                 for(double x=1;x<10;x+=1){
-                Write($"lngamma({x})={sfunc.lngamma(x)} \t {x-1}!={prodd}\n");
-                prodd*=x;
+                Write($"lngamma({x})={sfunc.lngamma(x)} \n");
+                prod*=x;
                 }
                 return 0;
 
