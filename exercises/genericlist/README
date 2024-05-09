@@ -1,0 +1,4 @@
+The code has outbut by 
+1. make glist.dll
+2. make main.exe
+3. mono main.exe < input.txt

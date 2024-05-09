@@ -1,12 +1,11 @@
-out_main.txt:  input.txt Makefile
-	cat input.txt | mono main.exe 1> $@
+Out.txt : main.exe
+	mono main.exe input:input.txt -output:$@
 
-tablereader.exe: main.cs glist.dll
-	mcs -out:$@ -target:exe -reference:glist.dll main.cs
+main.exe : main.cs glist.dll
+	mcs main.cs -reference:glist.dll
 
-glist.dll: glist.cs
-	mcs -out:$@ -target:library glist.cs
+glist.dll : glist.cs
+	mcs -target:library -out:glist.dll glist.cs
 
-.PHONEY: clean
 clean:
-	$(RM) glist.dll *.exe log* [Oo]ut*
+	rm -f [oO]ut.txt main.exe *.dll

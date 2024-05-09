@@ -1,8 +1,8 @@
 using System;
 using static System.Console;
 
-public class main{
-	public static void Main(){
+static class main{
+	static int Main(){
        		var list = new genlist<double[]>();
         	char[] delimiters = {' ','\t'};
         	var options = StringSplitOptions.RemoveEmptyEntries;
@@ -19,7 +19,8 @@ public class main{
                 	var numbers = list[i];
 			foreach(var number in numbers)Write($"{number : 0.00e+00;-0.00e+00} ");
                 	WriteLine();
-       			}
+      			}
+	return 0;
 	}
-}//Main
-}//main
+}
+
