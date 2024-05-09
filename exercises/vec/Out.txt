@@ -1,0 +1,18 @@
+v = (6, 2, 9)
+u = (5, 1, 7)
+-v = (-6, -2, -9)
+-u*2d = (-10, -2, -14)
+v/2d = (3, 1, 4.5)
+v+u = (11, 3, 16)
+v-u = (1, 1, 2)
+u-v = (-1, -1, -2)
+-v-u = (-11, -3, -16)
+v.dot(u) gives 95
+v.dot(v) gives 121
+v.norm() gives 121
+vec.dot(v,u) gives 95
+vec.dot(v,v) gives 121
+242
+121
+False
+6 2 9

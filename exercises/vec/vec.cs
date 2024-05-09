@@ -21,7 +21,7 @@ public class vec{
 		return v*c;
 		}
 
-	public static vec operator+(vec u, vec v){
+	public static vec operator+(vec v, vec u){
 		return new vec(v.x+u.x, v.y+u.y, v.z+u.z);
 		}
 
@@ -29,18 +29,22 @@ public class vec{
 		return new vec(-u.x,-u.y,-u.z);
 		}
 
-	public static vec operator-(vec u, vec v){
+	public static vec operator-(vec v, vec u){
 		return new vec(v.x-u.x, v.y-u.y, v.z-u.z);
 		}
 
-	//methods for printing:
-	public void print(string s){
-		Write(s);
-		WriteLine($"{x} {y} {z}");
+	public static vec operator/(vec v, double u){double n = 1d/u;
+		return v*n;
 		}
 
-	public void print(){
-		this.print("");
+	//printing
+	public void testwrite(string s){
+		Write($"{s} = ({x}, {y}, {z})\n");
+		}
+
+	public void testwrite(){
+		Write($"Test Write:\n");
+		Write($"\n");
 		}
 
 	//dot product, vector product and norm
@@ -57,23 +61,23 @@ public class vec{
 		}
 
 	//comparing the vectors
-	static bool approx(double a,double b,double acc=1e-9,double eps=1e-9){
-		if(Abs(a-b)<acc)return true;
-		if(Abs(a-b)<(Abs(a)+Abs(b))*eps)return true;
-			return false;
-			}
+	public bool approx(double a,double b,double acc=1e-9,double eps=1e-9){
+		if(Abs(a-b) < acc)return true;
+		if(Abs(a-b) < (Abs(a) + Abs(b)) * eps)return true;
+		return false;
+		}
 
 	public bool approx(vec other){
-		if(!approx(this.x,other.x) return false;
-		if(!approx(this.y,other.y) return false;
-		if(!approx(this.z,other.z) return false;
+		if(!approx(this.x, other.x)) return false;
+		if(!approx(this.y, other.y)) return false;
+		if(!approx(this.z, other.z)) return false;
 		return true;
 		}
 
-	public static bool approx(vec u, vec v);
-		return u.approx(v);
+	public static bool approx(vec v, vec u){
+		return v.approx(u);
+		}
 
-	//override to string
 	public override string ToString(){
 		return $"{x} {y} {z}";
 		}
