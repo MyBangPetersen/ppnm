@@ -1,51 +1,53 @@
-class main{
+using System;
+using static System.Console;
+using System.Linq;
+using System.Diagnostics;
+using System.Threading.Tasks;
 
-	public class harmdata { public int a,b; public double sum;}
+
+public class main{
+	public class data { public int a,b; public double sum;}
 
 	public static void harm(object obj){
-        	harmdata d = (harmdata)obj;
-        	d.sum=0;
-		System.Console.Write($"harm: a={d.a} b={d.b} \n");
-        	for(int i=d.a;i<=d.b;i++)d.sum+=1.0/i;
-			System.Console.Write($"harm: sum={d.sum} \n");
-			}
+		var arg = (data)obj;
+		arg.sum=0;
+		for(int i=arg.a;i<arg.b;i++)arg.sum+=1.0/i;
+	}//harm
 
 
 	public static int Main(string[] args){
-		int nterms=(int)1e7, nthredds=1;
-		foreach(string arg in args){
+		int nthreads = 1, nterms = (int)1e8; /* default values */
+		foreach(var arg in args) {
 			var words = arg.Split(':');
-			if(words[0]=="-nterms")nterms=(int)double.Parse(words[1]);
-			if(words[0]=="-nthreads")nthreads=(int)double.Parse(words[1]);
-			}
+			if(words[0]=="-threads") nthreads=int.Parse(words[1]);
+			if(words[0]=="-terms"  ) nterms  =(int)float.Parse(words[1]);
+		}
+		WriteLine($"Terms = {nterms}, Threads = {nthreads}");
 
-		System.Console.Write($"Main: nterms={nterms} nthreads={nthreads} \n");
-		harmdata[] data = new harmdata[nthreads];
-		int chunk=nterms/nthreads;
-		for(int i=0; i<nthreads; i++){
-			data[i] = new harmdata();
-			data[i].a = i*chunk+1;
-			data[i].b = data[i].a+chunk;
-			}
-		data[nthreads-1].b=nterms;
+		data[] datas = new data[nthreads];
+		for(int i=0;i<nthreads;i++) {
+			datas[i] = new data();
+			datas[i].a = 1 + nterms/nthreads*i;
+			datas[i].b = 1 + nterms/nthreads*(i+1);
+			WriteLine($"i = {i}, a = {datas[i].a}, b = {datas[i].b}");
+   		}
+		datas[datas.Length-1].b=nterms+1; /* the enpoint might need adjustment */
+
 		var threads = new System.Threading.Thread[nthreads];
-		System.Console.Write($"Main: starting threads \n");
+		for(int i=0;i<nthreads;i++) {
+			threads[i] = new System.Threading.Thread(harm); /* create a thread */
+			threads[i].Start(datas[i]); /* run it with params[i] as argument to "harm" */
+   		}
 
-		for (int i=0; i<nthreads; i++){
-			threads[i] = new System.Threading.Thread(harm);
-			threads[i].Start(data[i]);
-			}
+		foreach(var thread in threads) thread.Join();
+		double total=0;
+		foreach(var p in datas) total+=p.sum;
+		WriteLine($"Main:total= {total}");
 
-		System.Console.Write($"Main: waiting for threads to finish \n");
-		foreach(var thread in threads)thread.Join();
-		double total = 0;
-		foreach(harmdata datum in data)total+=datum.sum;
-
-
+		var sum = new System.Threading.ThreadLocal<double>( ()=>0, trackAllValues:true);
+		System.Threading.Tasks.Parallel.For( 1, nterms+1, (int i)=>sum.Value+=1.0/i );
+		double totalsum=sum.Values.Sum();
+		WriteLine($"Main: Sum = {totalsum}");
 		return 0;
-}//Main
-
+	}// Main
 }//main
-
-
-
