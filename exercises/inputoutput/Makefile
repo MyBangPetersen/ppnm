@@ -5,6 +5,7 @@ Out.txt: main1.exe main2.exe main3.exe Makefile
 
 main1.exe: main1.cs
 	mcs -target:exe -out:$@ $<
+
 main2.exe: main2.cs
 	mcs -target:exe -out:$@ $<
 

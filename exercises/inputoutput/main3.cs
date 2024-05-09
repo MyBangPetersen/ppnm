@@ -9,13 +9,16 @@ public class main3{
 			if(words[0]=="-output")outfile=words[1];
 			}
 
-		if( infile==null || outfile==null) {
+		if(infile==null || outfile==null){
 			System.Console.Error.WriteLine("wrong filename argument");
 			return 1;
 			}
 
-		var instream =new System.IO.StreamReader(infile);
-		var outstream=new System.IO.StreamWriter(outfile,append:false);
+		var instream = new System.IO.StreamReader(infile);
+		var outstream = new System.IO.StreamWriter(outfile, append:true);
+
+		outstream.WriteLine($"Part 3");
+
 		for(string line=instream.ReadLine();line!=null;line=instream.ReadLine()){
 			double x=double.Parse(line);
 			outstream.WriteLine($"{x} {Sin(x)} {Cos(x)}");

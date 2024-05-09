@@ -1,8 +1,8 @@
 using static System.Math;
 
-
 public class main1{
-	public static void Main(string[] args){
+	static int  Main(string[] args){
+		System.Console.WriteLine($"Part 1");
 		foreach(var arg in args){
 			var words = arg.Split(':');
 			if(words[0]=="-numbers"){
@@ -12,6 +12,8 @@ public class main1{
 					System.Console.WriteLine($"{x} {Sin(x)} {Cos(x)}");
 			}
 		}
-	}//Main
+	}
+	System.Console.WriteLine("");
+	return 0;
+}//Main
 }//main1
-}
