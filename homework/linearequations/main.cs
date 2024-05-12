@@ -35,6 +35,7 @@ public static class QRGS{
 	public static (matrix, matrix) decomp(matrix A){
 		matrix Q = new matrix(A.rows, A.cols);
 		matrix R = new matrix(A.rows, A.cols);
+
 		for(int i = 0; i<A.rows; i++){
 			R[i,i] = Q[i].norm();
 			Q[i]/= R[i,i];
@@ -43,6 +44,7 @@ public static class QRGS{
 			}}
 			return (Q, R);
 		}
+
 
 	//solving equation
 	public static vector solve(matrix Q, matrix R, vector b){
