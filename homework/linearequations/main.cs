@@ -1,71 +1,109 @@
+using static matrix;
+
 //generating a random matrix of some size
-public static class RM{
-	public static matrix randommatrix(int rowsize,int colsize){
-		matrix emptm = new matrix(rowsize, colsize);
-
+public static class Matrix{
+	public static matrix Random(int size1, int size2){
+		matrix RandomMatrix = new matrix(size1, size2);
 		var rnd = new System.Random(1);
-
-		for (int i = 0; i<rowsize; i++){
-			for (int j = 0; j<colsize; j++){
-			emptm[i,j] = rnd.NextDouble();
-			}}
-
-		return emptm;
+		for (int i=0; i<size1; i++){
+			for (int j=0; j<size2; j++){
+                        	RandomMatrix[i, j] = rnd.NextDouble()*10 - 5;
+			}
 		}
+		return RandomMatrix;
 	}
-
 
 //generating a vector of some size
-public static class RV{
-	public static vector randomvector(int indexsize){
-		vector emptv = new vector(indexsize);
+	public static vector Random(int size){
+		vector RandomVector = new vector(size);
 
 		var rnd = new System.Random(1);
 
-		for (int n = 0; n<indexsize; n++){
-		emptv[n] = rnd.NextDouble();
+		for (int i = 0; i<size; i++){
+			RandomVector[i] = rnd.NextDouble()*10-5;
 		}
-
-		return emptv;
-		}
+		return RandomVector;
 	}
+
+//vector to matrix
+
+public static vector[] Vecs(matrix A){
+		vector[] columns = new vector[A.size2];
+    		for (int i = 0; i < A.size2; i++){
+			vector e = new vector(A.size1);
+			for (int j = 0; j < A.size1; j++){
+				e[j] = A[j, i];
+			}
+			columns[i] = e;
+		}
+		return columns;
+	}//Vecs
+
+	public static matrix VecsToMatrix(vector[] A){
+		int rows = A[0].size;
+		int columns = A.Length;
+		matrix VTM = new matrix(rows,columns);
+		for (int i=0; i<columns; i++){
+			for (int j=0; j<rows; j++){
+				VTM[j, i] = A[i][j];
+			}
+		}
+		return VTM;
+	}//VecsToMatrix
+
+}//End of Matrix
 
 public static class QRGS{
 	//gram smith orthoginalization
 	public static (matrix, matrix) decomp(matrix A){
-		matrix Q = new matrix(A.rows, A.cols);
-		matrix R = new matrix(A.rows, A.cols);
+		matrix Q = new matrix(A.size1, A.size2);
+		matrix R = new matrix(A.size2, A.size2);
 
-		for(int i = 0; i<A.rows; i++){
-			R[i,i] = Q[i].norm();
-			Q[i]/= R[i,i];
-			for(int j = i + 1; j<A.cols ; j++){R[i, j] = Q[i].dot(Q[j]);
-			Q[j]-= Q[i] * R[i,j];
-			}}
-			return (Q, R);
+		vector[] As = new vector[A.size2];
+		vector[] orthoVecs = new vector[A.size2];
+
+		for (int i=0; i<A.size2; i++){
+			vector ai = Matrix.Vecs(A)[i];
+			vector ui = ai;
+			for (int j=0; j<i; j++){
+				ui = ui - orthoVecs[j] * ui.dot(orthoVecs[j]);
+			}
+			vector ei = ui/ui.norm();
+			As[i] = ai;
+			orthoVecs[i] = ei;
 		}
+		Q = Matrix.VecsToMatrix(orthoVecs);
+
+		for (int i=0; i<A.size2; i++){
+			for (int j=0; j<A.size2; j++){
+				R[i,j] = As[j].dot(orthoVecs[i]);
+			}
+		}
+
+			return (Q, R);
+	}//decomp
 
 
 	//solving equation
 	public static vector solve(matrix Q, matrix R, vector b){
 		int length = b.size;
-		vector a = new vector(length);
+		vector x = new vector(length);
 		matrix QT = Q.T;
 		vector QTb = QT*b;
 		//solving the lineq from the bottom since R is upper triangular
 		for (int i = length - 1; i>=0; i--){
 			double sum = 0;
 			for (int j=i; j<length; j++){
-				sum += R[i,j] * a[j];
+				sum += R[i,j] * x[j];
 			}
 
-			a[i] = (QTb[i] - sum)/R[i, i];
+			x[i] = (QTb[i] - sum)/R[i, i];
 		}
-		return a;
+		return x;
 		}
 
 	public static double det(matrix R){
-		int size = R.rows;
+		int size = R.size1;
 		double det = 1;
 		for (int i = 0; i<size; i++){
 			det *= R[i, i];
@@ -94,15 +132,17 @@ public static class QRGS{
 	}//QRGS
 
 
-class main{
+public static class main{
 static void Main(){
 	System.Console.Write("Making a random matrix");
-	matrix A = RM.randommatrix(3,3);
+	matrix A = Matrix.Random(3,3);
 	A.print();
 
 	System.Console.Write("Making a random vector \n");
-	vector H = RV.randomvector(3);
+	vector H = Matrix.Random(3);
 	H.print();
+
+	matrix I = matrix.id(A.size2);
 
 	//decomp testing
 
@@ -138,7 +178,7 @@ static void Main(){
 
 	//testing inverse
 	matrix A_inverse = QRGS.inverse(Q, R);
-	Syetem.Console.Write($"A*A^-1=I : {I.approx(A*A_inverse)}");
+	System.Console.Write($"A*A^-1=I : {I.approx(A*A_inverse)}");
 
 	}//Main
 	}//main
