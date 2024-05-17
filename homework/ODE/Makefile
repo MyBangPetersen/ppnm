@@ -54,7 +54,7 @@ main.exe: main.cs ode.dll matrix.dll vector.dll
 ode.dll: ode.cs matrix.dll vector.dll
 	mcs -target:library -reference:matrix.dll -out:$@ $<
 
-matrix.dll: matrix.cs
+matrix.dll: matrix.cs vector.cs
 	mcs -target:library -out:$@ $<
 
 PHONEY: clean
