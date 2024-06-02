@@ -1,51 +1,45 @@
 using System;
 using static System.Console;
-using static System.Math;
+using static matrix;
+using System.IO;
 
-public static class main{
-	public static void Main(){
-		//Testing some integrals.
-		WriteLine("--- Testing integral of sqrt(x) from 0 to 1. ---");
-		Func<double,double> func1 = t => Sqrt(t);
-		WriteLine($"{integrator.integrate(func1, 0, 1)} is within accuracy goals of 2/3.");
-		WriteLine("");
+public class Integration{
+	public static double Integrate(Func<double,double> f, double a, double b, double δ=0.001, double ε=0.001, double f2=NaN, double f3=NaN){
 
-		WriteLine("--- Testing integral of 1/sqrt(x) from 0 to 1. ---");
-		Func<double,double> func2 = t => 1/Sqrt(t);
-		WriteLine($"{integrator.integrate(func2, 0, 1)} is within accuracy goals of 2.");
-		WriteLine("");
+	double h=b-a;
+	if(IsNaN(f2)){
+		f2=f(a+2*h/6);
+	 	f3=f(a+4*h/6); 
+		} // first call, no points to reuse
 
-		WriteLine("--- Testing integral of 4*sqrt(1-x^2) from 0 to 1. ---");
-		Func<double,double> func3 = t => 4*Sqrt(1-Pow(t,2));
-		WriteLine($"{integrator.integrate(func3, 0, 1)} is within accuracy goals of pi.");
-		WriteLine("");
+	double f1=f(a+h/6);
+	double f4=f(a+5*h/6);
 
-		WriteLine("--- Testing integral of ln(x)/sqrt(x) from 0 to 1. ---");
-		Func<double,double> func4 = t => Log(t)/Sqrt(t);
-		WriteLine($"{integrator.integrate(func4, 0, 1)} is within accuracy goals of -4.");
-		WriteLine("");
+	double Q = (2*f1+f2+f3+2*f4)/6*(b-a); // higher order rule
+	double q = (  f1+f2+f3+  f4)/4*(b-a); // lower order rule
+	double err = Math.Abs(Q-q);
+
+	if (err <= d+epsilon*Math.Abs(Q)) return Q;
+
+	else return integrate(f,a,(a+b)/2,δ/√2,ε,f1,f2)+
+	integrate(f,(a+b)/2,b,δ/√2,ε,f3,f4);
+}
 
 
-		//Making a plot of error function.
-		vector zs = vector.linspace(100,-10,10);
-		vector errys = new vector(zs.size);
-		for(int i=0; i<zs.size; i++){
-			errys[i] = integrator.erf(zs[i]);
-			Error.WriteLine($"{zs[i]} {errys[i]}");
-		}
-		
-		WriteLine("--- Comparing error function approximations to exact values ---");
-		WriteLine("z | approx | exact");
-		WriteLine($"-2 | {integrator.erf(-2)} | -0.99532");
-		WriteLine($"-1 | {integrator.erf(-1)} | -0.84270");
-		WriteLine($"-0.6 | {integrator.erf(-0.6)} | -0.60386");
-		WriteLine($"-0.1 | {integrator.erf(-0.1)} | -0.11246");
-		WriteLine($"0 | {integrator.erf(0)} | 0");
-		WriteLine($"0.1 | {integrator.erf(0.1)} | 0.11246");
-		WriteLine($"0.6 | {integrator.erf(0.6)} | 0.60386");
-		WriteLine($"1 | {integrator.erf(1)} | 0.84270");
-		WriteLine($"2 | {integrator.erf(2)} | 0.99532");
-		WriteLine("These results are very similar to plot exercise.");
-		
-	}//Main func
-}//main class
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+}//Integration

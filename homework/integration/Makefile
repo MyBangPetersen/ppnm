@@ -1,31 +1,23 @@
-default: fit.gnuplot.svg Testresults.txt
+matrix.dll : vector.cs matrix.cs
+	mcs -target:library -out:$@ $^
 
-fit.gnuplot.svg: plotdata.txt Makefile
+tot.dll : QRGS.cs matrix.dll
+	mcs -target:library -reference:matrix.dll -out:$@ QRGS.cs
+
+main.exe : main.cs matrix.dll
+	mcs main.cs -reference:matrix.dll -target:exe -out:main.exe
+
+Erf.gnuplot.svg : erf.txt Makefile
 	echo '\
 		set terminal svg background "white" ;\
 		set out "$@" ;\
-		set key right;\
-		set xlabel "z" ;\
-		set ylabel "erf(z)" ;\
+		set key right top ;\
 		set tics out ;\
 		set grid ;\
-		set title "Error Function" ;\
 		plot \
-			"$<" using 1:2 notitle ;\
+			"erf.txt" using 1:2 with lines title "Erf" ;\
 	' | tee log.gpi | gnuplot
 
-Testresults.txt: main.exe
-	mono $< 1>$@ 2>plotdata.txt
 
-main.exe: main.cs integrator.dll matrix.dll
-	mcs -target:exe -reference:integrator.dll -reference:matrix.dll -out:$@ $<
-
-integrator.dll: integrator.cs matrix.dll
-	mcs -target:library -reference:matrix.dll -out:$@ $<
-
-matrix.dll: matrix.cs
-	mcs -target:library -out:$@ $<
-
-PHONEY: clean
-clean:
-	rm -f *.dll *.exe Testresults.txt
+clean :
+	rm -f *.dll *.exe *.txt *.svg bestfit*.txt
