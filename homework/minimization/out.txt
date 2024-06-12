@@ -1,0 +1,13 @@
+The Rosenbrock valley function looks like f(x.y) = (1-x)^2 + 100*(y-x^2)^2:
+
+Found minimum (x.y):         1          1 
+Initial guess (x.y):        10         10 
+Value of function at found minimum: 1.03188329829049E-11
+Steps used: 440
+
+The Himmelblau function looks like f(x.y) = (x^2+y-11)^2 + (x+y^2-7)^2:
+
+Found minimum (x.y):         3          2 
+Initial guess (x.y):        10         10 
+Value of function at found minimum: 1.05555752548514E-12
+Steps used: 116
