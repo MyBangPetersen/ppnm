@@ -1,0 +1,7 @@
+Solving the function f(x,y) = 2xy, random guess x = [-2936, 51428]
+Solved (eps satisfied) x = [0, 1.14349447879331E-20] at loop 2
+test funcs Last value for fx =          0   2.29e-20 
+
+Solving Rosenbrock's valley function, random guess x = [-67, 86]
+Solved (eps satisfied) x = [-1.00000000000001, 1.00000000000002] at loop 18
+Rosenbrock last value for fx =  -5.06e-14  -4.44e-14 
