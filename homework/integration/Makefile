@@ -1,23 +1,25 @@
-matrix.dll : vector.cs matrix.cs
-	mcs -target:library -out:$@ $^
+out.erf.png: out.txt Makefile
+		echo '\
+					set terminal png background "white";\
+					set out "$@";\
+					set ylabel "erf(x)";\
+					set xlabel "x";\
+					set title "integral representation of the errorfunction";\
+					set grid;\
+					plot\
+							"$<" index 1 with lines title "erf(x)"\
+							,"$<" index 2 with points pointtype 2 title "table values"; \
+					'| tee erf.log.gpi | gnuplot
 
-tot.dll : QRGS.cs matrix.dll
-	mcs -target:library -reference:matrix.dll -out:$@ QRGS.cs
+out.txt:main.exe
+	mono $< >$@
+	sed 's/,/./g' $@ > modified_$@ && mv modified_$@ $@
 
-main.exe : main.cs matrix.dll
-	mcs main.cs -reference:matrix.dll -target:exe -out:main.exe
+main.exe:main.cs integ.dll
+	mcs -target:exe -out:main.exe -reference:integ.dll main.cs
 
-Erf.gnuplot.svg : erf.txt Makefile
-	echo '\
-		set terminal svg background "white" ;\
-		set out "$@" ;\
-		set key right top ;\
-		set tics out ;\
-		set grid ;\
-		plot \
-			"erf.txt" using 1:2 with lines title "Erf" ;\
-	' | tee log.gpi | gnuplot
+integ.dll:integ.cs
+	mcs -target:library -out:integ.dll integ.cs
 
-
-clean :
-	rm -f *.dll *.exe *.txt *.svg bestfit*.txt
+clean:
+	$(RM) *.exe *.dll *.gpi *.png [Oo]ut*
