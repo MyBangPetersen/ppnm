@@ -21,10 +21,24 @@ public static class Matrix{
 			}
 		}
 		return RandomMatrix;
-	}//Random
+	}//Random matrix
 
 
 	//generating a vector of size n
+	public static vector Random(int size){
+
+		vector RandomVector = new vector(size);
+		var rnd = new System.Random(1);
+
+		for(int i = 0; i < size; i++){
+			RandomVector[i] = rnd.Next(100)+1;
+			}
+
+		return RandomVector;
+	}//Random vector
+
+
+
 
 
 
@@ -32,11 +46,12 @@ public static class Matrix{
 
 public static class main{
 	static void Main(){
-	System.Console.Write("Making a random matrix of size n");
+	System.Console.Write("Generating some random matrix of size n");
 	matrix P = Matrix.Random(5, 5);
 	P.print();
-	System.Console.Write("Which is symmetric as it equals its transposed:");
-	P.T.print();
-	}//Main
+	System.Console.Write("and some vector of the same size \n");
+	vector u = Matrix.Random(5);
+	u.print();
 
+}//Main
 }//main

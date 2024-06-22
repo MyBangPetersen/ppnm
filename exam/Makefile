@@ -10,5 +10,8 @@ eigenup.exe: eigenup.cs matrix.dll
 matrix.dll: vector.cs matrix.cs
 	mcs -target:library -out:matrix.dll $^
 
+vals.dll: vals.cs vector.dll matrix.dll
+        mcs -target:library -reference:matrix.dll -reference:vector.dll $<
+
 clean:
 	rm -f *.dll *.exe [Oo]ut.txt
