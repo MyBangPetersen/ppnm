@@ -4,20 +4,27 @@ using static System.Math;
 using static matrix;
 
 public static class Matrix{
-
-	//Generating a random matrix of size n
+	//Generating a symmetric matrix of some size to use as D
+	//Ths matrix must be diagonal
+	//If the matrix must be square use size1 = size2
 	public static matrix Random(int size1, int size2){
+
 		matrix RandomMatrix = new matrix(size1, size2);
-		var rnd = new System.Random(1);
-		for (int n = 0; n < size1; n++){
-			for (int j = n; j < size2; j++){
-				RandomMatrix[n, j] = rnd.NextDouble()*10 - 5;
-				RandomMatrix[j, n] = RandomMatrix[n, j]; //Symmetry
+		var rnd = new System.Random();
+
+		for (int i = 0; i < size1; i++){
+
+			for (int j = 0; j <= i; j++){
+
+				RandomMatrix[i, j] = rnd.Next(100)+1;
+				RandomMatrix[i, j] = RandomMatrix[j, i];
 			}
 		}
 		return RandomMatrix;
-	}// Random matrix
+	}//Random
 
+
+	//generating a vector of size n
 
 
 
@@ -26,8 +33,10 @@ public static class Matrix{
 public static class main{
 	static void Main(){
 	System.Console.Write("Making a random matrix of size n");
-	matrix A = Matrix.Random(3, 3);
-	A.print();
-
+	matrix P = Matrix.Random(5, 5);
+	P.print();
+	System.Console.Write("Which is symmetric as it equals its transposed:");
+	P.T.print();
 	}//Main
+
 }//main

@@ -1,4 +1,12 @@
-Making a random matrix
-     -2.51      -3.89      -0.33 
-     -3.89       2.72       1.58 
-     -0.33       1.58     -0.672 
+Making a random matrix of size n
+        63          0          0          0          0 
+         0         48          0          0          0 
+         0          0         87          0          0 
+         0          0          0         28          0 
+         0          0          0          0        100 
+Which is symmetric as it equals its transposed:
+        63          0          0          0          0 
+         0         48          0          0          0 
+         0          0         87          0          0 
+         0          0          0         28          0 
+         0          0          0          0        100 
