@@ -8,7 +8,6 @@ public static class Matrix{
 	//Ths matrix must be diagonal
 	//If the matrix must be square use size1 = size2
 	public static matrix Random(int size1, int size2){
-
 		matrix RandomMatrix = new matrix(size1, size2);
 		var rnd = new System.Random();
 
@@ -46,12 +45,24 @@ public static class Matrix{
 
 public static class main{
 	static void Main(){
+	//start-matrix and vector
 	System.Console.Write("Generating some random matrix of size n");
 	matrix P = Matrix.Random(5, 5);
 	P.print();
 	System.Console.Write("and some vector of the same size \n");
 	vector u = Matrix.Random(5);
 	u.print();
+
+	//the A-matrix
+	System.Console.Write("Finding the matrix A \n");
+	int p = 3;
+	matrix A = vals.setmat(D, u, p);
+	A.print();
+
+	//the eigenvalues
+	System.Console.Write("and the eigenvalues for A is \n");
+	vector e = vals.eig(A, p);
+	e.print();
 
 }//Main
 }//main

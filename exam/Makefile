@@ -1,17 +1,20 @@
+all: Out.txt
+	cat Out.txt
+
 Out.txt: main.exe
-	mono main.exe > Out.txt
+	mono $< > $@
 
-main.exe: main.cs matrix.dll
-	mcs main.cs -reference:matrix.dll -target:exe -out:main.exe
-
-eigenup.exe: eigenup.cs matrix.dll
-	mcs eigenup.exe -reference:matrix.dll -target:exe -out:eigenup.exe
-
-matrix.dll: vector.cs matrix.cs
-	mcs -target:library -out:matrix.dll $^
+main.exe: main.cs matrix.dll vector.dll vals.dll
+	mcs -target:exe -reference:matrix.dll -reference:vector.dll -reference:vals.dll main.cs
 
 vals.dll: vals.cs vector.dll matrix.dll
-        mcs -target:library -reference:matrix.dll -reference:vector.dll $<
+	mcs -target:library -reference:matrix.dll -reference:vector.dll  vals.cs
+
+matrix.dll: matrix.cs vector.dll
+	mcs -target:library -reference:vector.dll matrix.cs
+
+vector.dll: vector.cs
+	mcs -target:library vector.cs 
 
 clean:
-	rm -f *.dll *.exe [Oo]ut.txt
+	$(RM) *.exe *.txt *.dll
