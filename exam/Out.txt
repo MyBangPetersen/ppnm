@@ -1,8 +1,17 @@
 Generating some random matrix of size n
-        30          0          0          0          0 
-         0         38          0          0          0 
-         0          0         69          0          0 
-         0          0          0         46          0 
-         0          0          0          0         22 
+        14          0          0          0          0 
+         0         70          0          0          0 
+         0          0         79          0          0 
+         0          0          0         91          0 
+         0          0          0          0          6 
 and some vector of the same size 
         25         12         47         78         66 
+Finding the matrix A 
+
+        39          0          0         25          0 
+         0         82          0         12          0 
+         0          0        126         47          0 
+         0          0          0        247          0 
+         0          0          0         66         72 
+and the eigenvalues for A is 
+        39        126        126        280        126 

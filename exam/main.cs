@@ -15,7 +15,7 @@ public static class Matrix{
 
 			for (int j = 0; j <= i; j++){
 
-				RandomMatrix[i, j] = rnd.Next(100)+1;
+				RandomMatrix[i, j] = rnd.Next(100) + 1;
 				RandomMatrix[i, j] = RandomMatrix[j, i];
 			}
 		}
@@ -30,7 +30,7 @@ public static class Matrix{
 		var rnd = new System.Random(1);
 
 		for(int i = 0; i < size; i++){
-			RandomVector[i] = rnd.Next(100)+1;
+			RandomVector[i] = rnd.Next(100) + 1;
 			}
 
 		return RandomVector;
@@ -56,12 +56,12 @@ public static class main{
 	//the A-matrix
 	System.Console.Write("Finding the matrix A \n");
 	int p = 3;
-	matrix A = vals.setmat(D, u, p);
+	matrix A = eigenvalues.setmat(P, u, p);
 	A.print();
 
 	//the eigenvalues
 	System.Console.Write("and the eigenvalues for A is \n");
-	vector e = vals.eig(A, p);
+	vector e = eigenvalues.eig(A, p);
 	e.print();
 
 }//Main
