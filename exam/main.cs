@@ -24,12 +24,12 @@ public static class Matrix{
 
 
 	//generating a vector of size n
-	public static vector Random(int size){
+	public static vector Random(int n){
 
-		vector RandomVector = new vector(size);
+		vector RandomVector = new vector(n);
 		var rnd = new System.Random(1);
 
-		for(int i = 0; i < size; i++){
+		for(int i = 0; i < n; i++){
 			RandomVector[i] = rnd.Next(100) + 1;
 			}
 
@@ -46,17 +46,19 @@ public static class Matrix{
 public static class main{
 	static void Main(){
 	//start-matrix and vector
-	System.Console.Write("Generating some random matrix of size n");
-	matrix P = Matrix.Random(5, 5);
-	P.print();
+	System.Console.Write("Generating some random matrix of size n.\n");
+	System.Console.Write("Here we use n = 4");
+	matrix D = Matrix.Random(4, 4);
+	D.print();
 	System.Console.Write("and some vector of the same size \n");
-	vector u = Matrix.Random(5);
+	vector u = Matrix.Random(4);
 	u.print();
+	System.Console.Write("These are the matrix D and the vector u \n  needed for beginning the the updates. \n");
 
 	//the A-matrix
-	System.Console.Write("Finding the matrix A \n");
+	System.Console.Write("Finding the matrix A");
 	int p = 3;
-	matrix A = eigenvalues.setmat(P, u, p);
+	matrix A = eigenvalues.setmat(D, u, p);
 	A.print();
 
 	//the eigenvalues

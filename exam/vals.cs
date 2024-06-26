@@ -42,7 +42,7 @@ public class eigenvalues{
 			e[i] = A[i,i] + 0.1;
 		}
 
-
+		//using Newtons method for solving as it completes with O(n²) operations
 		for(int i = 0; i < n; i++){
 			for(int j = 0; j < iterations; j++){
 				x = 0;
@@ -57,6 +57,7 @@ public class eigenvalues{
 				if(l == p) dx = dx + 1;
 				else dx = dx + A[l,p] * A[l,p]/((A[l,l] - e[i]) * (A[l,l] - e[i]));
 			}
+			//the method itself
 			e0 = e[i];
 			e[i] = (e[i] - x/dx);
 		}

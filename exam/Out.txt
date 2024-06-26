@@ -1,17 +1,17 @@
-Generating some random matrix of size n
-        14          0          0          0          0 
-         0         70          0          0          0 
-         0          0         79          0          0 
-         0          0          0         91          0 
-         0          0          0          0          6 
+Generating some random matrix of size n.
+Here we use n = 4
+        89          0          0          0 
+         0          3          0          0 
+         0          0         40          0 
+         0          0          0         42 
 and some vector of the same size 
-        25         12         47         78         66 
-Finding the matrix A 
-
-        39          0          0         25          0 
-         0         82          0         12          0 
-         0          0        126         47          0 
-         0          0          0        247          0 
-         0          0          0         66         72 
+        25         12         47         78 
+These are the matrix D and the vector u 
+  needed for beginning the the updates. 
+Finding the matrix A
+       114          0          0         25 
+         0         15          0         12 
+         0          0         87         47 
+         0          0          0        198 
 and the eigenvalues for A is 
-        39        126        126        280        126 
+       215       15.2       87.2        215 
