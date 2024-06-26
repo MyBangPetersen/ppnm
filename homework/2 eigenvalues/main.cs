@@ -103,52 +103,6 @@ public static class main{
 
 
 
-/*
-	public static (matrix, matrix, matrix, matrix) cyclic(matrix M){
-		matrix A = M.copy();
-		matrix V = matrix.id(M.size1);
-		vector w = new vector(M.size1);
-
-		bool changed;
-		do{
-			changed=false;
-			for(int p=0;p<n-1;p++){
-				for(int q=p+1;q<n;q++){
-					double apq=A[p,q], app=A[p,p], aqq=A[q,q];
-					double theta=0.5*Atan2(2*apq,aqq-app);
-					double c=Cos(theta),s=Sin(theta);
-					double new_app=c*c*app-2*s*c*apq+s*s*aqq;
-					double new_aqq=s*s*app+2*s*c*apq+c*c*aqq;
-					if(new_app!=app || new_aqq!=aqq){
-					changed=true;
-					timesJ(A,p,q, theta); // A←A*J
-					Jtimes(A,p,q,-theta); // A←JT*A
-					timesJ(V,p,q, theta); // V←V*J
-					}
-				}
-		while (changed);
-		return (w,V);
-	}//cyclic
-}//jacobi
-
-
-//generating a random matrix
-public static class Matrix{
-	public static matrix Random(int rowsize, int colsize){
-		matrix emptm = new matrix(rowsize, colsize);
-		var rnd = new System.Random(1);
-		for (int i = 0; i<rowsize; i++){
-			for (int j = i; j<colsize; j++){
-			emptm[i,j] = rnd.NextDouble();
-			emptm[i,j] = emptm[j,i]; //the matrix must be symmetric
-			}
-		}
-		return emptm;
-
-	}//randommatrix
-}//rMatrix
-*/
-
 
 
 

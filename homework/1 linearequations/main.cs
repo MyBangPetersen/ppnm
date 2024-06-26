@@ -158,14 +158,6 @@ static void Main(){
 	QTQ.print();
 
 	//solve testing
-	/*
-	System.Console.Write("Making a vector and square matrix of same size");
-	matrix A = RM.randommatrix(3,3);
-        A.print();
-	System.Console.Write("\n");
-        vector H = RV.randomvector(3);
-	H.print();
-	*/
 	System.Console.Write("Decomposing using decomp from before");
 	//(matrix Q, matrix R) = QRGS.decomp(A);
 	Q.print();
